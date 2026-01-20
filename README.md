@@ -1,7 +1,7 @@
 # Physician Notetaker AI System 
 
 ## Overview
-This project develops an AI-powered NLP pipeline for processing physician-patient conversations. It includes:
+This notebook uses an AI-powered NLP pipeline for processing physician-patient conversations. It includes:
 - **Medical NLP Summarization**: NER for symptoms/treatment/diagnosis/prognosis, structured JSON summary, and keyword extraction.
 - **Sentiment & Intent Analysis**: Classifies patient sentiment (Anxious/Neutral/Reassured) and intent (e.g., Seeking reassurance).
 - **SOAP Note Generation (Bonus)**: Converts transcript to structured SOAP format (Subjective, Objective, Assessment, Plan).
@@ -11,7 +11,7 @@ The pipeline is implemented in a Jupyter Notebook using spaCy (with scispacy for
 Here are the steps for setup alspo included in the Jupyter Notebook just simple plug and play version open the Jupyter Notebook and run the cells sequentially and no need for and Hugging Face Tokens as publicly available models were used for this.Make sure to start the runtime using T4 GPU in collab.
 
 ## Step-by-Step Development
-We built the notebook iteratively based on user feedback and outputs.
+I have  built the notebook iteratively based on user feedback and outputs.
 
 1. **Initial Setup (Cells 1-3)**:
    - Markdown overview.
@@ -26,7 +26,7 @@ We built the notebook iteratively based on user feedback and outputs.
    - `generate_soap_note`: Rule-based section splitting (keywords like "recovery" for Assessment), BART summarization per section, regex inferences (e.g., chief_complaint).
 
 3. **Load Transcript (Cell 8)**:
-   - Paste or load from file (provided conversation).
+   - Already provided the in the cell included in the notebook if want and use text file as well just need to update the route
 
 4. **Run Pipeline (Cell 10)**:
    - Execute functions, print JSONs for summary, keywords, sentiment/intent, SOAP.
@@ -68,7 +68,7 @@ We built the notebook iteratively based on user feedback and outputs.
   ```
 
 ## Answers to Assignment Questions
-- **Pre-trained NLP Models for Medical Summarization**: BioBART/BART-large-cnn (used), BioBERT/ClinicalBERT for NER, T5/Pegasus for abstractive tasks. Code uses BART + scispacy.
+- **Pre-trained NLP Models for Medical Summarization**: BioBART/BART-large-cnn (used), BioBERT/ClinicalBERT for NER, T5/Pegasus for abstractive tasks. Code uses BART(As it has got encoder and decoder properties that BERT lack) + scispacy.
 - **Handling Ambiguous/Missing Data**: Contextual regex, fallbacks ("Unknown"), confidence filters. Code: Infer status/prognosis via re.search; default symptoms if none.
 - **Fine-Tune BERT for Medical Sentiment**: Load bert-base-uncased + classification head, preprocess/tokenize, train with Trainer API (epochs=3-5, lr=2e-5) on labeled data. Code: Maps general DistilBERT; extendable to fine-tuned model.
 - **Datasets for Healthcare Sentiment Model**: MIMIC-III, i2b2/2010, MedNLI, MedDialog, PubMed reviews. Code: Not trained, but ready for integration.
@@ -77,7 +77,6 @@ We built the notebook iteratively based on user feedback and outputs.
 
 ## Limitations and Improvements
 - **Limitations**: Rule-based (not fully DL-trained), general models (not fine-tuned on medical data), no real-time API.
-- **Improvements**: Fine-tune on MIMIC-III, add BERT for sentence-level SOAP classification, evaluate with ROUGE/F1.
+- **Improvements**: Fine-tune on MIMIC-III, add BERT for sentence-level SOAP classification, evaluate with ROUGE/F1 and better context rich models for better results.
 - **Runtime Notes**: GPU for Transformers; handle large transcripts by chunking.
 
-This completes the assignment pipeline—ready for submission as `.ipynb` + this README.md.
